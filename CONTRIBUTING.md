@@ -10,7 +10,7 @@ You'll need a Go environment set up with GOPATH set. See [the Go getting started
 
 Now in your terminal
 
-    git clone ssh://git@github.com/kenjones-cisco/dinamo.git
+    git clone ssh://git@github.com/yurrriq/dinamo.git
     cd dinamo
 
 Make a branch to add your new feature

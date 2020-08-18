@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /usr/bin/env bash
 
 ROOT_DIR=$(pwd)
 VERSION=$(gobump show -r version)

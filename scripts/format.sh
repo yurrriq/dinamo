@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /usr/bin/env bash
 
 PROJECT_FILE="${PROJECT_FILE:-project.yml}"
 local_import=$(yaml read "${PROJECT_FILE}" metadata.import)

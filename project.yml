@@ -1,6 +1,6 @@
 metadata:
   name: dinamo
-  namespace: kenjones-cisco
-  import: github.com/kenjones-cisco/dinamo
+  namespace: yurrriq
+  import: github.com/yurrriq/dinamo
   build:
     - target: .

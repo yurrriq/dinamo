@@ -7,7 +7,7 @@ import (
 
 	"github.com/spf13/cobra/doc"
 
-	"github.com/kenjones-cisco/dinamo/commands"
+	"github.com/yurrriq/dinamo/commands"
 )
 
 func main() {

@@ -1,5 +1,5 @@
 MAKEFLAGS += -r --warn-undefined-variables
-SHELL := /bin/bash
+SHELL := bash
 .SHELLFLAGS := -o pipefail -euc
 .DEFAULT_GOAL := help
 
@@ -18,7 +18,7 @@ help:
 	@echo '    xcompile        Compile the project for multiple OS and Architectures.'
 	@echo
 	@echo '  ## Develop / Test Commands'
-	@echo '    vendor          Install dependencies using dep if Gopkg.toml changed.'
+	@echo '    vendor          Install dependencies using dep if go.mod changed.'
 	@echo '    dep-update      Update dependencies using dep.'
 	@echo '    dep-add         Add new dependencies to dep and install.'
 	@echo '    format          Run code formatter.'
@@ -86,18 +86,18 @@ xcompile: check
 # ----------------------------------------------
 # dependencies
 
-## Install dependencies using dep if Gopkg.toml changed.
+## Install dependencies using dep if go.mod changed.
 vendor: tmp/vendor-installed
-tmp/vendor-installed: tmp/dev_image_id Gopkg.toml
+tmp/vendor-installed: tmp/dev_image_id go.mod
 	@mkdir -p vendor
 	${DOCKERRUN} dep ensure
 	@date > tmp/vendor-installed
-	@chmod 644 Gopkg.lock || :
+	@chmod 644 go.sum || :
 
 ## Update dependencies using dep.
 dep-update: prepare
 	${DOCKERRUN} dep ensure -update ${DEP}
-	@chmod 644 Gopkg.lock || :
+	@chmod 644 go.sum || :
 
 # usage DEP=github.com/owner/package make dep-add
 ## Add new dependencies to dep and install.
@@ -106,7 +106,7 @@ ifeq ($(strip $(DEP)),)
 	$(error "No dependency provided. Expected: DEP=<go import path>")
 endif
 	${DOCKERRUN} dep ensure -add ${DEP}
-	@chmod 644 Gopkg.lock || :
+	@chmod 644 go.sum || :
 
 # ----------------------------------------------
 # develop and test
@@ -124,10 +124,10 @@ debug:
 format: tmp/vendor-installed
 	${DOCKERNOVENDOR} bash ./scripts/format.sh
 	@if [[ -n "$$(git -c core.fileMode=false status --porcelain)" ]]; then \
-    	echo "goimports modified code; requires attention!" ; \
-    	if [[ "${CI_ENABLED}" == "1" ]]; then \
-        	exit 1 ; \
-    	fi ; \
+	echo "goimports modified code; requires attention!" ; \
+	if [[ "${CI_ENABLED}" == "1" ]]; then \
+		exit 1 ; \
+	fi ; \
 	fi
 
 ## Run static code analysis (lint).

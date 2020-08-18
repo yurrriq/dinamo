@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/kenjones-cisco/dinamo/commands"
+	"github.com/yurrriq/dinamo/commands"
 )
 
 // entrypoint for the CLI
